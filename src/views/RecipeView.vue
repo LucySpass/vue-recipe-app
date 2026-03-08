@@ -12,8 +12,7 @@ const store = useRecipeStore()
 const recipe = ref<Recipe | null>(null)
 
 onMounted(async () => {
-  console.log(Number(route.params.id))
-  recipe.value = await store.useGetRecipeById(Number(route.params.id))
+  recipe.value = await store.useGetRecipeById(String(route.params.id))
 })
 </script>
 

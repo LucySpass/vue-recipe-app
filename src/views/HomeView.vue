@@ -17,7 +17,12 @@ onMounted(() => {
 
   <div v-if="store.recipes.length > 0" class="grid gap-2">
     <div v-for="recipe in store.recipes" :key="recipe.id">
-      <RecipeCard :recipe="recipe" shortDescription></RecipeCard>
+      <RouterLink
+        :to="`/recipe/${recipe.id}`"
+        class="block rounded border-2 border-black bg-white p-4 shadow-[4px_4px_0_0] hover:bg-yellow-100 focus:ring-2 focus:ring-yellow-300 focus:outline-0 text-black"
+      >
+        <RecipeCard :recipe="recipe" shortDescription></RecipeCard>
+      </RouterLink>
     </div>
   </div>
 

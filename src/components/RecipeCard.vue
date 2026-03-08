@@ -6,14 +6,11 @@ const props = defineProps<{
   shortDescription?: boolean
 }>()
 
-const { id, createdDate, title, description } = props.recipe
+const { createdDate, title, description } = props.recipe
 </script>
 
 <template>
-  <RouterLink
-    :to="`/recipe/${id}`"
-    class="block rounded border-2 border-black bg-white p-4 shadow-[4px_4px_0_0] hover:bg-yellow-100 focus:ring-2 focus:ring-yellow-300 focus:outline-0 text-black"
-  >
+  <div class="flex flex-col gap-2">
     <span class="inline-flex items-center gap-1.5">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -35,12 +32,12 @@ const { id, createdDate, title, description } = props.recipe
       </time>
     </span>
 
-    <h3 class="mt-1 text-xl font-semibold">
+    <h3 class="text-xl font-semibold">
       {{ title }}
     </h3>
 
-    <p :class="['mt-2', shortDescription && 'line-clamp-2', 'text-pretty']">
+    <p :class="[shortDescription && 'line-clamp-2', 'text-pretty']">
       {{ description }}
     </p>
-  </RouterLink>
+  </div>
 </template>

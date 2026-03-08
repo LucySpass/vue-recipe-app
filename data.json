@@ -1,7 +1,7 @@
 {
   "recipes": [
     {
-      "id": 1,
+      "id": "1",
       "title": "Spaghetti Bolognese",
       "description": "Classic Italian pasta dish with rich meat sauce, tomatoes, and aromatic herbs. Perfect comfort food that's hearty and satisfying.",
       "isFavorite": false,
@@ -9,7 +9,7 @@
       "author": "Maria Rossi"
     },
     {
-      "id": 2,
+      "id": "2",
       "title": "Avocado Toast",
       "description": "Simple yet delicious breakfast featuring mashed avocado on toasted bread, topped with olive oil, lemon juice, and red pepper flakes.",
       "isFavorite": true,
@@ -17,7 +17,7 @@
       "author": "Chef Jordan"
     },
     {
-      "id": 3,
+      "id": "3",
       "title": "Chicken Tikka Masala",
       "description": "Tender chunks of marinated chicken in a creamy, spiced tomato-based sauce. A beloved Indian-inspired dish with aromatic spices and herbs.",
       "isFavorite": true,
@@ -25,12 +25,21 @@
       "author": "Priya Sharma"
     },
     {
-      "id": 4,
+      "id": "4",
       "title": "Caesar Salad",
       "description": "Crisp romaine lettuce with creamy Caesar dressing, parmesan cheese, and crunchy croutons. A timeless classic that's refreshing and flavorful.",
       "isFavorite": false,
       "createdDate": "2026-02-28",
       "author": "Chef Michael"
+    },
+    {
+      "id": "44f6",
+      "title": "test",
+      "description": "test 2",
+      "author": "asdasd",
+      "createdDate": "2026-03-12",
+      "isFavorite": false
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

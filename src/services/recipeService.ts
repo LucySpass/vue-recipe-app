@@ -8,7 +8,7 @@ export async function fetchRecipes(): Promise<Recipe[]> {
   return response.json()
 }
 
-export async function addRecipe(recipe: Recipe): Promise<Recipe> {
+export async function addRecipe(recipe: Omit<Recipe, 'id'>): Promise<Recipe> {
   const response = await fetch(API_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -28,7 +28,7 @@ export async function updateRecipe(recipe: Recipe): Promise<Recipe> {
   return response.json()
 }
 
-export async function deleteRecipe(id: number): Promise<void> {
+export async function deleteRecipe(id: string): Promise<void> {
   const response = await fetch(`${API_URL}/${id}`, { method: 'DELETE' })
   if (!response.ok) throw new Error('Failed to delete recipe')
 }

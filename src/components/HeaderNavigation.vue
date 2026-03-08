@@ -12,5 +12,8 @@ import { RouterLink } from 'vue-router'
     <RouterLink to="/about" class="text-xl font-bold lg:inline-block hover:text-teal-500">
       About
     </RouterLink>
+    <RouterLink to="/add" class="text-xl font-bold lg:inline-block hover:text-teal-500">
+      Add Recipe
+    </RouterLink>
   </nav>
 </template>

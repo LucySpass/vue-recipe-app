@@ -1,7 +1,7 @@
 import { addRecipe, deleteRecipe, fetchRecipes, updateRecipe } from '@/services/recipeService'
 import type { Recipe } from '@/types/Recipe'
 import { defineStore } from 'pinia'
-import { ref, toRaw } from 'vue'
+import { ref } from 'vue'
 
 const getError = (err: unknown, defaultMessage: string) =>
   err instanceof Error ? err.message : defaultMessage
@@ -23,7 +23,7 @@ export const useRecipeStore = defineStore('recipe', () => {
     }
   }
 
-  const useAddRecipe = async (newRecipe: Recipe) => {
+  const useAddRecipe = async (newRecipe: Omit<Recipe, 'id'>) => {
     try {
       const savedRecipe = await addRecipe(newRecipe)
       recipes.value.push(savedRecipe)
@@ -46,7 +46,7 @@ export const useRecipeStore = defineStore('recipe', () => {
     }
   }
 
-  const useDeleteRecipe = async (id: number) => {
+  const useDeleteRecipe = async (id: string) => {
     try {
       await deleteRecipe(id)
       recipes.value = recipes.value.filter((r) => r.id !== id)
@@ -56,19 +56,12 @@ export const useRecipeStore = defineStore('recipe', () => {
     }
   }
 
-  const useGetRecipeById = async (id: number): Promise<Recipe | null> => {
+  const useGetRecipeById = async (id: string): Promise<Recipe | null> => {
     if (!recipes.value.length) {
       await useGetRecipes()
     }
 
-    console.log(
-      'useGetRecipeById',
-      toRaw(recipes.value),
-      id,
-      recipes.value.find((r) => r.id === id),
-    )
-
-    return recipes.value.find((r) => Number(r.id) === id) ?? null
+    return recipes.value.find((r) => r.id === id) ?? null
   }
 
   return {
