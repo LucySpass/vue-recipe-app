@@ -1,12 +1,12 @@
 {
   "recipes": [
     {
-      "id": "1",
       "title": "Spaghetti Bolognese",
       "description": "Classic Italian pasta dish with rich meat sauce, tomatoes, and aromatic herbs. Perfect comfort food that's hearty and satisfying.",
-      "isFavorite": false,
+      "author": "Maria Rossi",
       "createdDate": "2026-01-15",
-      "author": "Maria Rossi"
+      "isFavorite": true,
+      "id": "1"
     },
     {
       "id": "2",
@@ -17,12 +17,12 @@
       "author": "Chef Jordan"
     },
     {
-      "id": "3",
       "title": "Chicken Tikka Masala",
       "description": "Tender chunks of marinated chicken in a creamy, spiced tomato-based sauce. A beloved Indian-inspired dish with aromatic spices and herbs.",
-      "isFavorite": true,
+      "author": "Priya Sharma",
       "createdDate": "2026-01-22",
-      "author": "Priya Sharma"
+      "isFavorite": false,
+      "id": "3"
     },
     {
       "id": "4",
@@ -31,14 +31,6 @@
       "isFavorite": false,
       "createdDate": "2026-02-28",
       "author": "Chef Michael"
-    },
-    {
-      "id": "44f6",
-      "title": "test",
-      "description": "test 2",
-      "author": "asdasd",
-      "createdDate": "2026-03-12",
-      "isFavorite": false
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

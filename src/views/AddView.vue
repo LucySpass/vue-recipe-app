@@ -3,11 +3,14 @@ import ButtonComponent from '@/components/ButtonComponent.vue'
 import ErrorBadge from '@/components/ErrorBadge.vue'
 import { useRecipeStore } from '@/stores/recipe'
 import type { Recipe } from '@/types/Recipe'
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { onMounted, ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
 const router = useRouter()
+const route = useRoute()
 const store = useRecipeStore()
+
+const isEditing = !!route.params.id
 
 const initialState = {
   title: '',
@@ -20,6 +23,24 @@ const initialState = {
 const form = ref({ ...initialState })
 const isSubmitting = ref(false)
 const formError = ref<string | null>(null)
+const recipe = ref<Recipe | null>(null)
+
+onMounted(async () => {
+  if (isEditing) {
+    recipe.value = await store.useGetRecipeById(String(route.params.id))
+    if (recipe.value) {
+      form.value = {
+        title: recipe.value.title,
+        description: recipe.value.description,
+        author: recipe.value.author,
+        createdDate: recipe.value.createdDate,
+        isFavorite: recipe.value.isFavorite,
+      }
+    } else {
+      formError.value = 'Recipe not found'
+    }
+  }
+})
 
 const handleSubmit = async () => {
   if (!form.value.title) {
@@ -39,7 +60,6 @@ const handleSubmit = async () => {
   formError.value = null
 
   try {
-    // Create recipe without id (server assigns it)
     const newRecipe: Omit<Recipe, 'id'> = {
       title: form.value.title,
       description: form.value.description,
@@ -47,15 +67,16 @@ const handleSubmit = async () => {
       createdDate: form.value.createdDate ?? new Date(),
       isFavorite: form.value.isFavorite,
     }
-
-    await store.useAddRecipe(newRecipe)
-
-    // Redirect to home on success
-    router.push('/')
+    if (isEditing && recipe.value) {
+      await store.useUpdateRecipe({ ...newRecipe, id: recipe.value.id })
+    } else {
+      await store.useAddRecipe(newRecipe)
+    }
   } catch (err) {
     formError.value = err instanceof Error ? err.message : 'Failed to add recipe'
   } finally {
     isSubmitting.value = false
+    router.push(`/recipe/${route.params.id}`)
   }
 }
 
@@ -122,7 +143,15 @@ const resetForm = () => {
 
       <div class="flex gap-4">
         <ButtonComponent type="submit" :disabled="isSubmitting">
-          {{ isSubmitting ? 'Adding...' : 'Add Recipe' }}
+          {{
+            isSubmitting
+              ? isEditing
+                ? 'Updating...'
+                : 'Adding...'
+              : isEditing
+                ? 'Update Recipe'
+                : 'Add Recipe'
+          }}
         </ButtonComponent>
         <ButtonComponent type="reset" @click="resetForm" :disabled="isSubmitting">
           Reset
