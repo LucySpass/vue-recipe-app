@@ -1,9 +1,12 @@
 @import 'tailwindcss';
 
+html {
+  background-color: oklch(30.2% 0.056 229.695);
+}
+
 #app {
   margin: 0 auto;
   padding: 2rem;
   font-weight: normal;
-  background-color: oklch(30.2% 0.056 229.695);
   color: aquamarine;
 }
