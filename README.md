@@ -1,47 +1,57 @@
-# vue-recipe-app
+# Vue Recipe App
 
-This template should help get you started developing with Vue 3 in Vite.
+A recipe management app built to learn **Vue 3** with the Composition API. Recipes are stored in `localStorage` so the app works fully in the browser with no backend required.
 
-## Recommended IDE Setup
+---
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## Features
 
-## Recommended Browser Setup
+- Browse a list of recipes on the home page
+- View full recipe details
+- Add new recipes via a form
+- Edit existing recipes
+- Delete recipes
+- Mark recipes as favorites (shown with a star icon)
+- Data persists in the browser via `localStorage`
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+## Tech stack
 
-## Type Support for `.vue` Imports in TS
+| Tool                    | Purpose             |
+| ----------------------- | ------------------- |
+| Vue 3 (Composition API) | UI framework        |
+| TypeScript              | Type safety         |
+| Pinia                   | State management    |
+| Vue Router              | Client-side routing |
+| Tailwind CSS v4         | Styling             |
+| Vite                    | Build tool          |
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+## Project structure
 
-## Customize configuration
+```
+src/
+├── assets/        # Global CSS (Tailwind)
+├── components/    # Reusable UI components (RecipeCard, HeaderNavigation, …)
+├── router/        # Vue Router configuration
+├── services/      # localStorage read/write logic (recipeService.ts)
+├── stores/        # Pinia store (recipe.ts)
+├── types/         # TypeScript interfaces (Recipe.ts)
+└── views/         # Page-level components (HomeView, RecipeView, AddView, …)
+```
 
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
+## Local development
 
 ```sh
 npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+### Build for production
 
 ```sh
 npm run build
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+### Lint
 
 ```sh
 npm run lint

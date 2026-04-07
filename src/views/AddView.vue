@@ -69,14 +69,15 @@ const handleSubmit = async () => {
     }
     if (isEditing && recipe.value) {
       await store.useUpdateRecipe({ ...newRecipe, id: recipe.value.id })
+      router.push(`/recipe/${recipe.value.id}`)
     } else {
-      await store.useAddRecipe(newRecipe)
+      const saved = await store.useAddRecipe(newRecipe)
+      router.push(`/recipe/${saved.id}`)
     }
   } catch (err) {
     formError.value = err instanceof Error ? err.message : 'Failed to add recipe'
   } finally {
     isSubmitting.value = false
-    router.push(`/recipe/${route.params.id}`)
   }
 }
 

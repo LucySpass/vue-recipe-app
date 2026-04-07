@@ -1,34 +1,43 @@
 import type { Recipe } from '@/types/Recipe'
 
-const API_URL = 'http://localhost:3000/recipes'
+const STORAGE_KEY = 'vue-recipe-app-recipes'
+
+function loadRecipes(): Recipe[] {
+  const data = localStorage.getItem(STORAGE_KEY)
+  if (!data) return []
+  try {
+    return JSON.parse(data) as Recipe[]
+  } catch {
+    return []
+  }
+}
+
+function saveRecipes(recipes: Recipe[]): void {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(recipes))
+}
 
 export async function fetchRecipes(): Promise<Recipe[]> {
-  const response = await fetch(API_URL)
-  if (!response.ok) throw new Error('Failed to fetch recipes')
-  return response.json()
+  return loadRecipes()
 }
 
 export async function addRecipe(recipe: Omit<Recipe, 'id'>): Promise<Recipe> {
-  const response = await fetch(API_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(recipe),
-  })
-  if (!response.ok) throw new Error('Failed to add recipe')
-  return response.json()
+  const recipes = loadRecipes()
+  const newRecipe: Recipe = { ...recipe, id: crypto.randomUUID() }
+  recipes.push(newRecipe)
+  saveRecipes(recipes)
+  return newRecipe
 }
 
 export async function updateRecipe(recipe: Recipe): Promise<Recipe> {
-  const response = await fetch(`${API_URL}/${recipe.id}`, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(recipe),
-  })
-  if (!response.ok) throw new Error('Failed to update recipe')
-  return response.json()
+  const recipes = loadRecipes()
+  const index = recipes.findIndex((r) => r.id === recipe.id)
+  if (index === -1) throw new Error('Recipe not found')
+  recipes[index] = recipe
+  saveRecipes(recipes)
+  return recipe
 }
 
 export async function deleteRecipe(id: string): Promise<void> {
-  const response = await fetch(`${API_URL}/${id}`, { method: 'DELETE' })
-  if (!response.ok) throw new Error('Failed to delete recipe')
+  const recipes = loadRecipes()
+  saveRecipes(recipes.filter((r) => r.id !== id))
 }
